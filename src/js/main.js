@@ -127,6 +127,7 @@ function viewModel() {
     }, self);
 
     // Put markers into a ko computable for filtering
+    // TODO refactor the markers to be a part of the location data, thus requiring only one filter
     self.filterMarkers = ko.computed(function() {
         var filter = self.search().toLowerCase();
 
@@ -141,6 +142,7 @@ function viewModel() {
         }
     });
 
+    // bound to the location list in index.html, displays infowindow when list item clicked
     self.displayMarker = function(place) {
         google.maps.event.trigger(map, 'click'); //turns off any currently displaying infowindows
         marker = "";
@@ -149,17 +151,13 @@ function viewModel() {
                 marker = self.markers()[i];
                 google.maps.event.trigger(self.markers()[i].marker, 'click'); //toggles the visibility of the infowindow
             }
-        } //  var marker = function() {
+        } 
 
     };
     // ################################
     // Map stuff
     // ################################
-
-
-
-
-
+    // TODO move this out of the ViewModel
     var Marker = function Marker(place) {
         var self = this;
         this.name = place.name;
@@ -181,10 +179,11 @@ function viewModel() {
         if (url === undefined) {
             url = "";
         }
+
         var infoWindow = new google.maps.InfoWindow({
             content: '<div><h4>' + place.name + '</h4>' +
                 '<h5>' + address + '</h5>' +
-                '<a href="' + url + '">' + url + "</a>" 
+                '<a href="' + url + '" target="blank">' + url + "</a>" 
         });
         //toggles info window and bounce when marker is clicked
         google.maps.event.addListener(self.marker, 'click', function() {
