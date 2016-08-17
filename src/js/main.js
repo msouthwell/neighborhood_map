@@ -61,9 +61,10 @@ function viewModel() {
     // Title for page
     self.header = ko.observable();
 
-    self.header("Milwaukee Night Life");
+    self.header("Milwaukee Night Life (Foursquare)");
 
     // Error string, appears under header
+    self.error = ko.observable("");
     // Stores all of the locations
     self.locationData = ko.observableArray();
 
@@ -145,13 +146,12 @@ function viewModel() {
     });
 
     self.displayMarker = function(place) {
-        google.maps.event.trigger(map, 'click');
+        google.maps.event.trigger(map, 'click'); //turns off any currently displaying infowindows
         marker = "";
         for (var i in self.markers()) {
             if (self.markers()[i].name == place.name) {
-                console.log(self.markers()[i]);
                 marker = self.markers()[i];
-                google.maps.event.trigger(self.markers()[i].marker, 'click');
+                google.maps.event.trigger(self.markers()[i].marker, 'click'); //toggles the visibility of the infowindow
             }
         } //  var marker = function() {
 
@@ -199,6 +199,7 @@ function viewModel() {
                 '<h5>' + address + '</h5>' +
                 '<a href="' + url + '">' + url + "</a>"
         });
+        //toggles info window and bounce when marker is clicked
         google.maps.event.addListener(self.marker, 'click', function() {
             if (!self.marker.open) {
                 google.maps.event.trigger(map, 'click');
@@ -212,6 +213,7 @@ function viewModel() {
 
             }
         });
+        //closes infowindow if map is clicked on
         google.maps.event.addListener(map, 'click', function() {
             if (self.marker.open) {
                 infoWindow.close();
@@ -221,6 +223,7 @@ function viewModel() {
             }
         });
 
+        //allows toggling of the infowindow
         this.isVisible = ko.observable(false);
 
         this.isVisible.subscribe(function(currentState) {
