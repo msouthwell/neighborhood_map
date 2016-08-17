@@ -239,10 +239,10 @@ initMap = function() {
             zoom: 14
         };
         map = new google.maps.Map(document.querySelector('#map'), mapOptions);
-}
+};
 googleError = function() {
     alert("Google failed to load");
-}
+};
 
 
 ko.applyBindings(new viewModel());
