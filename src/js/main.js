@@ -157,17 +157,8 @@ function viewModel() {
     // ################################
 
 
-    // map centers in Milwaukee Wisconsin
-    var mapOptions = {
-        disableDefaultUI: false,
-        center: {
-            lat: 43.0389,
-            lng: -87.9065
-        },
-        zoom: 14
-    };
 
-    map = new google.maps.Map(document.querySelector('#map'), mapOptions);
+
 
     var Marker = function Marker(place) {
         var self = this;
@@ -234,6 +225,23 @@ function viewModel() {
     };
 
 
+}
+
+var map;
+initMap = function() {
+        // map centers in Milwaukee Wisconsin
+        var mapOptions = {
+            disableDefaultUI: false,
+            center: {
+                lat: 43.0389,
+                lng: -87.9065
+            },
+            zoom: 14
+        };
+        map = new google.maps.Map(document.querySelector('#map'), mapOptions);
+}
+googleError = function() {
+    alert("Google failed to load");
 }
 
 

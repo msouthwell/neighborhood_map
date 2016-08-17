@@ -90,16 +90,11 @@
             <h3 id="googleErrorMessage" data-bind="text: googleErrorMessage"><
         </div>
     </div>
-    <script>
-            googleError = function() {
-                alert("Google failed to load");
-            }
-            </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzzl1GAowCF0YzSOo9Vr4OSnqk3bwrsCs" onerror="googleError()"></script>
 
     <script src="js/libs/knockout.js"></script>
     <script src="js/libs/jquery-2.2.3.min.js"></script>
     <script src="js/main.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzzl1GAowCF0YzSOo9Vr4OSnqk3bwrsCs&callback=initMap" onerror="googleError()"></script>
 
 
 </body>
