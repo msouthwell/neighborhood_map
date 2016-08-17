@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Neighborhood Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <style>
+        .row {
+            width: 100%;
+        }
+        
+        .nav-bar {
+            text-align: center;
+        }
+        
+        .map-responsive {
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+        }
+        
+        .map-responsive iframe {
+            height: 100%;
+            width: 75%;
+            position: relative;
+            float: left;
+        }
+        
+        .foursquare-container {
+            height: 100%;
+            width: 25%;
+            position: relative;
+            float: left;
+        }
+        
+        .main {
+            background-color: black;
+        }
+        
+        h1,
+        h2,
+        h3,
+        h6 {
+            color: white;
+        }
+        
+        h4,
+        h5 {
+            color: black;
+        }
+        
+        p {
+            color: white;
+        }
+        
+        .locations {
+            color: white;
+        }
+        
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            .map-responsive {
+                width: 100%;
+            }
+            .foursquare-container {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body class="main">
+
+    <div class="row">
+        <h2 class="nav-bar" id="header" data-bind="text: header"></h2>
+    </div>
+    <div class="row">
+        <div class="foursquare-container">
+            <h3 id="error" data-bind="text: error"></h3>
+            <h3 id="search">Search: <input data-bind="value: search, valueUpdate: 'afterkeydown'"/></h3>
+            <ul id="location-data" data-bind="foreach: filteredItems">
+                <p class="locations" data-bind="text: name, click: $parent.displayMarker"></p>
+            </ul>
+        </div>
+
+        <div id="map" class="map-responsive"></div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzzl1GAowCF0YzSOo9Vr4OSnqk3bwrsCs"></script>
+
+    <script src="js/libs/knockout.js"></script>
+    <script src="js/libs/jquery-2.2.3.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
