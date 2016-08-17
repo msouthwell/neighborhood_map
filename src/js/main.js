@@ -65,17 +65,17 @@ function viewModel() {
 
     // Error string, appears under header
     self.error = ko.observable("");
+    self.googleErrorMessage = ko.observable("");
     // Stores all of the locations
     self.locationData = ko.observableArray();
 
     self.markers = ko.observableArray();
 
     // add the hardcoded locations into the observable array
-    for (var i in landmarks.landmarks) {
-        if (landmarks.landmarks.hasOwnProperty(i)) {
-            self.locationData.push(landmarks.landmarks[i]);
-        }
-    }
+    landmarks.landmarks.forEach(function(land){
+        self.locationData.push(land);
+    });
+
 
     // #########################
     // FOURSQUARE API
@@ -98,15 +98,11 @@ function viewModel() {
     // JSCON call to foursquare
     $.getJSON(url, function(data) {
 
-        for (var i in data.response.venues) {
-            if (data.response.venues.hasOwnProperty(i)) {
-                venue = data.response.venues[i];
-
+        data.response.venues.forEach(function(venue){
                 self.locationData.push(venue);
-            }
-        }
-        for (i = 0; i < self.locationData().length; i++) {
+        });
 
+        for (var i = 0; i < self.locationData().length; i++) {
             self.markers.push(new Marker(self.locationData()[i])); // TODO this should be altered to make map markers into an array
         }
     }).error(function() {
@@ -160,6 +156,7 @@ function viewModel() {
     // Map stuff
     // ################################
 
+
     // map centers in Milwaukee Wisconsin
     var mapOptions = {
         disableDefaultUI: false,
@@ -193,11 +190,10 @@ function viewModel() {
         if (url === undefined) {
             url = "";
         }
-
         var infoWindow = new google.maps.InfoWindow({
             content: '<div><h4>' + place.name + '</h4>' +
                 '<h5>' + address + '</h5>' +
-                '<a href="' + url + '">' + url + "</a>"
+                '<a href="' + url + '">' + url + "</a>" 
         });
         //toggles info window and bounce when marker is clicked
         google.maps.event.addListener(self.marker, 'click', function() {

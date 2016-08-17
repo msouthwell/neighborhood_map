@@ -80,19 +80,28 @@
     <div class="row">
         <div class="foursquare-container">
             <h3 id="error" data-bind="text: error"></h3>
-            <h3 id="search">Search: <input data-bind="value: search, valueUpdate: 'afterkeydown'"/></h3>
+            <h3 id="search">Search: <input data-bind="textInput: search"/></h3>
             <ul id="location-data" data-bind="foreach: filteredItems">
-                <p class="locations" data-bind="text: name, click: $parent.displayMarker"></p>
+                <li><p class="locations" data-bind="text: name, click: $parent.displayMarker"></p></li>
             </ul>
         </div>
 
-        <div id="map" class="map-responsive"></div>
+        <div id="map" class="map-responsive">
+            <h3 id="googleErrorMessage" data-bind="text: googleErrorMessage"><
+        </div>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzzl1GAowCF0YzSOo9Vr4OSnqk3bwrsCs"></script>
+    <script>
+            googleError = function() {
+                alert("Google failed to load");
+            }
+            </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzzl1GAowCF0YzSOo9Vr4OSnqk3bwrsCs" onerror="googleError()"></script>
 
     <script src="js/libs/knockout.js"></script>
     <script src="js/libs/jquery-2.2.3.min.js"></script>
     <script src="js/main.js"></script>
+
+
 </body>
 
 </html>
